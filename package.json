@@ -1,5 +1,8 @@
 {
-  "name": "aptos-arena-package",
+  "name": "@jasonhedman/aptos-arena-package",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/jasonhedman"
+  },
   "version": "0.0.1",
   "description": "A widget allowing any React app to render the Aptos Arena game",
   "main": "dist/cjs/index.js",
