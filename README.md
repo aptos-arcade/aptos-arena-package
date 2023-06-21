@@ -1,5 +1,3 @@
-# Aptos Arcade Package README
-
 # Aptos Arena Package
 
 This package facilitates the display of the Aptos Arena game in any React app.
