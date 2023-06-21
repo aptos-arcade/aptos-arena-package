@@ -7,13 +7,13 @@ This package facilitates the display of the Aptos Arena game in any React app.
 ### Installation
 
 ```bash
-npm install @jasonhedman/aptos-arena-package --save
+npm install aptos-arena-package-v1 --save
 ```
 
 or
 
 ```bash
-yarn add @jasonhedman/aptos-arena-package
+yarn add aptos-arena-package-v1
 ```
 
 ### Component
