@@ -1,9 +1,9 @@
 {
   "name": "@jasonhedman/aptos-arena-package",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/jasonhedman"
+    "registry": "https://registry.npmjs.org/"
   },
-  "version": "0.0.13",
+  "version": "0.0.18",
   "description": "A widget allowing any React app to render the Aptos Arena game",
   "main": "dist/cjs/index.js",
   "scripts": {
@@ -19,6 +19,7 @@
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-typescript": "^11.1.1",
     "@types/react": "^18.2.13",
+    "aptos": "^1.10.0",
     "rollup": "^3.25.1",
     "rollup-plugin-dts": "^5.3.0",
     "typescript": "^5.1.3"

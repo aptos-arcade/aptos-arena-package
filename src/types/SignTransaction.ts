@@ -1,3 +1,3 @@
-import {TransactionPayload} from "./TransactionPayload";
+import { TransactionPayload_EntryFunctionPayload } from "aptos/src/generated";
 
-export type SignTransaction = (payload: TransactionPayload) => Promise<Uint8Array>;
+export type SignTransaction = (payload: TransactionPayload_EntryFunctionPayload) => Promise<Uint8Array>;

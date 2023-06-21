@@ -1,3 +1,4 @@
-import {TransactionPayload} from "./TransactionPayload";
 
-export type SignAndSubmitTransaction = (payload: TransactionPayload) => Promise<{ hash: string }>;
+import { TransactionPayload_EntryFunctionPayload } from "aptos/src/generated";
+
+export type SignAndSubmitTransaction = (payload: TransactionPayload_EntryFunctionPayload) => Promise<{ hash: string }>;
