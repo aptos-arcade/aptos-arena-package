@@ -12,8 +12,8 @@ npm install @jasonhedman/aptos-arena-package --save
 
 or
 
-```rust
-yarn add @jasonhedman/aptos-arena-package --save
+```bash
+yarn add @jasonhedman/aptos-arena-package
 ```
 
 ### Component
