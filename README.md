@@ -38,6 +38,10 @@ const AptosArena = () => {
         // ...
         return Uint8Array.from([])
     }
+    
+    const connect = (walletName: string) => {
+        // ...
+    }
 
     const accountAddress = '0x1234567890'
 
@@ -45,6 +49,7 @@ const AptosArena = () => {
         <Game
             signAndSubmitTransaction={signAndSubmitTransaction}
             signTransaction={signTransaction}
+            connect={connect}
             accountAddress={accountAddress}
         />
     );
@@ -57,4 +62,5 @@ export default AptosArena;
 
 - `signAndSubmitTransaction` - `(TransactionPayload_EntryFunctionPayload) => Promise<{hash: string}>`
 - `signTransaction` - `(TransactionPayload_EntryFunctionPayload) => Promise<string>`
+- `connect` - `(walletName: string) => void`
 - `accountAddress` - `string`
