@@ -39,7 +39,7 @@ const AptosArena = () => {
         return Uint8Array.from([])
     }
     
-    const connect = (walletName: string) => {
+    const setConnectModalOpen = (isOpen: bool) => {
         // ...
     }
 
@@ -49,7 +49,7 @@ const AptosArena = () => {
         <Game
             signAndSubmitTransaction={signAndSubmitTransaction}
             signTransaction={signTransaction}
-            connect={connect}
+            setConnectModalOpen={setConnectModalOpen}
             accountAddress={accountAddress}
         />
     );
@@ -62,5 +62,5 @@ export default AptosArena;
 
 - `signAndSubmitTransaction` - `(TransactionPayload_EntryFunctionPayload) => Promise<{hash: string}>`
 - `signTransaction` - `(TransactionPayload_EntryFunctionPayload) => Promise<string>`
-- `connect` - `(walletName: string) => void`
+- `setConnectModalOpen` - `(isOpen: bool) => void`
 - `accountAddress` - `string`

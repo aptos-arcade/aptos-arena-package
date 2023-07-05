@@ -1,1 +1,1 @@
-export type Connect = (walletName: string) => void;
+export type SetConnectModalOpen = (isOpen: boolean) => void

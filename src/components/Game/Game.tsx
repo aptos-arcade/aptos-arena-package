@@ -3,18 +3,18 @@ import React from 'react'
 import { Unity } from 'react-unity-webgl';
 
 import useGameData from "../../hooks/useGameData";
-import {Connect, SignAndSubmitTransaction, SignTransaction} from "../../types";
+import {SetConnectModalOpen, SignAndSubmitTransaction, SignTransaction} from "../../types";
 
 interface Props {
     signAndSubmitTransaction: SignAndSubmitTransaction,
     signTransaction: SignTransaction,
-    connect: Connect,
+    setConnectModalOpen: SetConnectModalOpen,
     accountAddress?: string
 }
 
-const Game: React.FC<Props> = ({ signAndSubmitTransaction, signTransaction, connect, accountAddress }) => {
+const Game: React.FC<Props> = ({ signAndSubmitTransaction, signTransaction, setConnectModalOpen, accountAddress }) => {
 
-    const { unityProvider } = useGameData(signAndSubmitTransaction, signTransaction, connect, accountAddress);
+    const { unityProvider } = useGameData(signAndSubmitTransaction, signTransaction, setConnectModalOpen, accountAddress);
 
     return (
         <Unity

@@ -1,15 +1,16 @@
 import { useEffect, useCallback } from "react";
 
-import {useUnityContext} from "react-unity-webgl";
+import { useUnityContext } from "react-unity-webgl";
 
 import useAptosTransaction from "./useAptosTransaction";
 
-import {SignAndSubmitTransaction, SignTransaction, Connect} from "../types";
+import {SignAndSubmitTransaction, SignTransaction, SetConnectModalOpen} from "../types";
+import {ReactUnityEventParameter} from "react-unity-webgl/distribution/types/react-unity-event-parameters";
 
 const useGameData = (
     signAndSubmitTransaction: SignAndSubmitTransaction,
     signTransaction: SignTransaction,
-    connect: Connect,
+    setConnectModalOpen: SetConnectModalOpen,
     accountAddress: string | undefined,
 ) => {
 
@@ -35,7 +36,8 @@ const useGameData = (
         }
     }, [accountAddress, isLoaded, sendMessage]);
 
-    const onTransactionRequest = useCallback(async (func: string, args: string, typeArgs: string) => {
+
+    const handleTransactionRequest = async (func: string, args: string, typeArgs: string) => {
         const success = await submitTransaction({
             type: "entry_function_payload",
             function: func,
@@ -43,22 +45,26 @@ const useGameData = (
             type_arguments: typeArgs ? typeArgs.split(",") : []
         })
         sendMessage("TransactionHandler", "SendTransactionResult", success ? 1 : 0);
+    }
+
+    const onTransactionRequest = useCallback( (func: ReactUnityEventParameter, args: ReactUnityEventParameter, typeArgs: ReactUnityEventParameter) => {
+        handleTransactionRequest(func as string, args as string, typeArgs as string);
+        return undefined;
     }, [sendMessage, submitTransaction])
 
-    const onWalletConnect = useCallback(async (walletName: string) => connect(walletName), [connect])
+    const onSetConnectModalOpen = useCallback( (isOpen: ReactUnityEventParameter) => {
+        setConnectModalOpen((isOpen as number) > 0);
+        return undefined;
+    }, [setConnectModalOpen])
 
     useEffect(() => {
-        // @ts-ignore
         addEventListener("OnTransactionRequest", onTransactionRequest);
-        // @ts-ignore
-        addEventListener("ConnectWalletRequest", onWalletConnect);
+        addEventListener("SetConnectModalOpen", onSetConnectModalOpen);
         return () => {
-            // @ts-ignore
             removeEventListener("OnTransactionRequest", onTransactionRequest);
-            // @ts-ignore
-            removeEventListener("ConnectWalletRequest", onWalletConnect);
+            removeEventListener("SetConnectModalOpen", onSetConnectModalOpen);
         };
-    }, [addEventListener, onTransactionRequest, onWalletConnect, removeEventListener]);
+    }, [addEventListener, onTransactionRequest, onSetConnectModalOpen, removeEventListener]);
 
     return {
         unityProvider,

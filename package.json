@@ -3,7 +3,7 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "version": "0.0.20",
+  "version": "0.0.28",
   "description": "A widget allowing any React app to render the Aptos Arena game",
   "main": "dist/cjs/index.js",
   "scripts": {
@@ -12,6 +12,7 @@
   "author": "Jason Hedman",
   "license": "ISC",
   "dependencies": {
+    "aptos": "^1.10.0",
     "react-unity-webgl": "^9.4.0"
   },
   "devDependencies": {
@@ -20,11 +21,11 @@
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-typescript": "^11.1.1",
     "@types/react": "^18.2.13",
-    "aptos": "^1.10.0",
     "rollup": "^3.25.1",
     "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
     "tslib": "^2.6.0",
-    "typescript": "^5.1.3"
+    "typescript": "^4.9.5"
   },
   "peerDependencies": {
     "react": "18.2.0",
@@ -35,5 +36,10 @@
     "dist",
     "src/assets"
   ],
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
+  }
 }
