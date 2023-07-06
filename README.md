@@ -18,39 +18,26 @@ yarn add aptos-arena-package-v1
 
 ### Component
 
-```jsx
+```tsx
 import React from 'react';
 
-import { TransactionPayload_EntryFunctionPayload } from "aptos/src/generated";
+import {useWallet} from "@aptos-labs/wallet-adapter-react";
 
-import { Game } from "@jasonhedman/aptos-arena-package";
+import { Game } from "aptos-arena-package-v1";
 
-const AptosArena = () => {
+const TestGame = () => {
 
-    const signAndSubmitTransaction = async (transaction: TransactionPayload_EntryFunctionPayload) => {
-        // ...
-        return {
-            hash: '0x1234567890'
-        }
-    }
+    const { account, signAndSubmitTransaction } = useWallet();
 
-    const signTransaction = async (transaction: TransactionPayload_EntryFunctionPayload) => {
-        // ...
-        return Uint8Array.from([])
+    const setConnectModalOpen = async (isOpen: boolean) => {
+        console.log(isOpen);
     }
     
-    const setConnectModalOpen = (isOpen: bool) => {
-        // ...
-    }
-
-    const accountAddress = '0x1234567890'
-
     return (
         <Game
             signAndSubmitTransaction={signAndSubmitTransaction}
-            signTransaction={signTransaction}
             setConnectModalOpen={setConnectModalOpen}
-            accountAddress={accountAddress}
+            accountAddress={account?.address?.toString()}
         />
     );
 };
@@ -58,9 +45,77 @@ const AptosArena = () => {
 export default AptosArena;
 ```
 
-### Props
+### Hook
+    
+```tsx
+import React from 'react';
 
-- `signAndSubmitTransaction` - `(TransactionPayload_EntryFunctionPayload) => Promise<{hash: string}>`
-- `signTransaction` - `(TransactionPayload_EntryFunctionPayload) => Promise<string>`
-- `setConnectModalOpen` - `(isOpen: bool) => void`
-- `accountAddress` - `string`
+import {useWallet} from "@aptos-labs/wallet-adapter-react";
+
+import {Unity} from "react-unity-webgl";
+
+import {useGame} from "aptos-arena-package-v1";
+
+
+const TestGameWithHook = () => {
+
+    const { account, signAndSubmitTransaction } = useWallet();
+
+    const setConnectModalOpen = async (isOpen: boolean) => {
+        console.log(isOpen);
+    }
+
+    const {
+        unityProvider,
+        isLoaded,
+        unload,
+        requestFullscreen,
+        sendMessage,
+        addEventListener,
+        removeEventListener
+    } = useGame({
+        accountAddress: account?.address?.toString(),
+        signAndSubmitTransaction,
+        setConnectModalOpen,
+    });
+
+    return (
+        <Unity
+            unityProvider={unityProvider}
+            style={{
+                width: '100%',
+                aspectRatio: '16/9'
+            }}
+        />
+    );
+};
+
+export default TestGameWithHook;
+```
+
+## Types
+
+### GameProps
+
+
+```ts
+interface GameProps {
+    signAndSubmitTransaction: SignAndSubmitTransaction,
+    setConnectModalOpen: SetConnectModalOpen,
+    accountAddress?: string
+}
+```
+
+### SignAndSubmitTransaction
+
+``` ts
+type SignAndSubmitTransaction = (payload: TransactionPayload_EntryFunctionPayload) => Promise<{ hash: string }>;
+```
+
+### SetConnectModalOpen
+
+``` ts
+type SetConnectModalOpen = (isOpen: boolean) => void
+```
+
+

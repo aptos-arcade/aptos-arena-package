@@ -4,21 +4,19 @@ import { useUnityContext } from "react-unity-webgl";
 
 import useAptosTransaction from "./useAptosTransaction";
 
-import {SignAndSubmitTransaction, SignTransaction, SetConnectModalOpen} from "../types";
+import {GameProps} from "../types";
 import {ReactUnityEventParameter} from "react-unity-webgl/distribution/types/react-unity-event-parameters";
 
-const useGameData = (
-    signAndSubmitTransaction: SignAndSubmitTransaction,
-    signTransaction: SignTransaction,
-    setConnectModalOpen: SetConnectModalOpen,
-    accountAddress: string | undefined,
-) => {
+const useGame = (gameProps: GameProps) => {
+
+    const { signAndSubmitTransaction, setConnectModalOpen, accountAddress } = gameProps;
 
     const { submitTransaction } = useAptosTransaction(signAndSubmitTransaction);
 
     const {
         unityProvider,
         isLoaded,
+        unload,
         requestFullscreen,
         sendMessage,
         addEventListener,
@@ -69,6 +67,7 @@ const useGameData = (
     return {
         unityProvider,
         isLoaded,
+        unload,
         requestFullscreen,
         sendMessage,
         addEventListener,
@@ -76,4 +75,4 @@ const useGameData = (
     }
 }
 
-export default useGameData;
+export default useGame;
